@@ -60,9 +60,10 @@ if [ -z "$API_ENDPOINT" -o -z "$CONFIG_PATH" ]; then
     exit 1
 fi
 
-read API_KEY DEVICE_ID <<<$(jq -r '.apiKey,.deviceId' $CONFIG_PATH)
-if [ -z "$API_KEY" -o -z "$DEVICE_ID" ]; then
-    echo "JSON in config file $CONFIG_PATH must have apiKey and deviceId attributes."
+# Default to `apiKey` if `deviceApiKey` is missing for older devices that get a host os update.
+read DEVICE_API_KEY DEVICE_ID <<<$(jq -r '.deviceApiKey // .apiKey,.deviceId' $CONFIG_PATH)
+if [ -z "$DEVICE_API_KEY" -o -z "$DEVICE_ID" ]; then
+    echo "JSON in config file $CONFIG_PATH must have deviceApiKey and deviceId attributes."
     exit 1
 fi
 

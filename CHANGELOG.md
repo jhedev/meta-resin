@@ -1,6 +1,7 @@
 Change log
 -----------
 
+* Switched to the new device register endpoint which handles uuid generation and exchanging the provisioning key for a supervisor key [Page]
 * Expose docker socket over TCP on development images [Andrei]
 * Integrate and configure avahi [Andrei]
 * Start using gzip archives for kernel module headers [Andrei]
